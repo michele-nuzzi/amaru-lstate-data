@@ -57,7 +57,9 @@ pool_metadata = [
         link: str,
         file_hash: hash32
     ],
-
+    some_map,
+    some_map,
+    pool_deposits: { * pool_id => uint }; 500 ADA
 ]
 
 pool_fee = #6.30([ uint, uint ])
