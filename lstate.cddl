@@ -1,0 +1,65 @@
+ 
+l_state_snap = [
+    epoch_no,
+    prev_epoch_blocks: block_produced_by_pool,
+    curr_epoch_blocks: block_produced_by_pool
+    ledger_state
+];
+
+ledger_state = [
+    [ uint, uint ],
+    [
+        [
+            [
+                pool_certs,
+                pool_certs,
+                uint
+            ],
+            [
+                { * pool_id => pool_metadata },
+
+            ]
+        ]
+    ]
+]
+
+epoch_no = uint;
+
+block_produced_by_pool = { * pool_id => uint }
+
+hash28 = bytes .size 28;
+hash32 = bytes .size 32;
+
+pool_id = hash28;
+
+pool_certs = { * pool_cert_id => pool_cert }
+
+pool_cert_id = [ uint, pool_id ];
+pool_cert = [
+    uint,
+    [ * [ * str ] ],
+    pool_registration_deposit,
+    prev_certs: #6.258([ * pool_cert_id ])
+]
+
+pool_registration_deposit = uint; (usually 500 ADA)
+
+pool_metadata = [
+    hash28,
+    hash32,
+    uint,
+    uint,
+    pool_fee,
+    hash28,
+    pool_owners: #6.258([* hash28]),
+    pledges: [ * [ uint, uint, str ] ],
+    extra_metadata: [
+        link: str,
+        file_hash: hash32
+    ],
+
+]
+
+pool_fee = #6.30([ uint, uint ])
+
+some_map = { * any => any };
